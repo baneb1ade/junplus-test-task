@@ -1,2 +1,4 @@
 .idea
-.env
+config.env
+/app/docker/pgdata/
+pgdata
