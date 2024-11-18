@@ -82,7 +82,7 @@ git clone https://github.com/baneb1ade/javacode-test-task.git
 ```bash
 cd javacode-test-task
 ```
-При необходимости измените config.env и переменные окружения в docker/docker-compose.yml.
+При необходимости измените config.env и параметры подключения к БД в docker/docker-compose.yml.
 Запустите deploy.sh
 ```bash
 ./deploy.sh
