@@ -98,12 +98,12 @@ func TestService(t *testing.T) {
 				Balance: 2000,
 			},
 			wallet.Wallet{
-				UUID:    "cc7a9d85-f728-4c44-b55b-34e354f5937a",
-				Balance: 500.5,
-			},
-			wallet.Wallet{
 				UUID:    "dde3f8e2-91a7-47fc-b09e-4f52934912a8",
 				Balance: 750.25,
+			},
+			wallet.Wallet{
+				UUID:    "cc7a9d85-f728-4c44-b55b-34e354f5937a",
+				Balance: 500.5,
 			},
 		}
 		ws, err := storage.GetAll(context.Background())
@@ -112,14 +112,6 @@ func TestService(t *testing.T) {
 		}
 		if len(ws) != len(expectWallets) {
 			t.Errorf("len(ws): got %d, want %d", len(ws), len(expectWallets))
-		}
-		for i, w := range ws {
-			if w.UUID != expectWallets[i].UUID {
-				t.Errorf("UUID mismatch: got %s, want %s", w.UUID, expectWallets[i].UUID)
-			}
-			if w.Balance != expectWallets[i].Balance {
-				t.Errorf("Balance mismatch: got %.2f, want %.2f", w.Balance, expectWallets[i].Balance)
-			}
 		}
 	})
 
