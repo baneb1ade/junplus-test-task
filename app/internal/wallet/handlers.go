@@ -9,7 +9,7 @@ import (
 )
 
 func GetAllWallets(s Service) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		wallets, err := s.GetWallets(context.Background())
 		if err != nil {
 			w.Header().Set("Content-Type", "application/json")
@@ -50,7 +50,7 @@ func FindWalletByUUID(s Service) httprouter.Handle {
 }
 
 func UpdateWalletByUUID(v *validator.Validate, s Service) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		var req UpdateWalletRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			sendJSONError(w, http.StatusBadRequest, validationErr, err)

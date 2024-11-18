@@ -1,7 +1,6 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 )
@@ -25,10 +24,7 @@ type ServerConfig struct {
 }
 
 func MustLoad() *Config {
-	err := godotenv.Load("config.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+
 	requiredEnvVars := []string{
 		"POSTGRES_USER",
 		"POSTGRES_PASSWORD",

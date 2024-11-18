@@ -16,7 +16,7 @@ type PsqlClient interface {
 type Storage interface {
 	GetAll(ctx context.Context) ([]Wallet, error)
 	GetOne(ctx context.Context, uuid string) (Wallet, error)
-	UpdateOne(ctc context.Context, wallet Wallet) error
+	UpdateOne(ctx context.Context, wallet Wallet) error
 }
 
 type Service interface {

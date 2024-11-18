@@ -1,4 +1,3 @@
 .idea
-config.env
 /app/docker/pgdata/
 pgdata

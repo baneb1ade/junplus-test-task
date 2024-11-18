@@ -39,12 +39,12 @@ func NewApp(cfg *config.Config, log *slog.Logger) (*App, error) {
 	log.Info("Success connect to database")
 	storage := db.NewRepository(psqlClient, log)
 	s := wallet.NewService(storage)
-
 	v := validator.New()
 	router := httprouter.New()
 	router.GET("/api/v1/wallets/", middlewares.LoggingMiddleware(log, wallet.GetAllWallets(s)))
-	router.GET("/api/v1/wallets/:id", middlewares.LoggingMiddleware(log, wallet.FindWalletByUUID(s)))
-	router.POST("/api/v1/wallet", middlewares.LoggingMiddleware(log, wallet.UpdateWalletByUUID(v, s)))
+	router.GET("/api/v1/wallets/:id/", middlewares.LoggingMiddleware(log, wallet.FindWalletByUUID(s)))
+	router.POST("/api/v1/wallet/", middlewares.LoggingMiddleware(log, wallet.UpdateWalletByUUID(v, s)))
+
 	app := App{
 		config: cfg,
 		logger: log,
@@ -63,6 +63,6 @@ func (app *App) StartHTTP() {
 	}
 
 	if err := app.httpServer.ListenAndServe(); err != nil {
-		app.logger.Error("Failed to start HTTP server", err)
+		app.logger.Error("Failed to start HTTP server", "error", err)
 	}
 }
