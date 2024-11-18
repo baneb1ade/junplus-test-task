@@ -14,15 +14,15 @@
   ```json
   {
     "walletId": "UUID",
-    "operationType": "DEPOSIT" | "WITHDRAW",
+    "operationType": "DEPOSIT | WITHDRAW",
     "amount": 1000
   }
   ```
   Пример ответа:
   ```json
   {
-	""uuid": "cc7a9d85-f728-4c44-b55b-34e354f5937a",
-	""balance": 15500.5
+	"uuid": "cc7a9d85-f728-4c44-b55b-34e354f5937a",
+	"balance": 15500.5
   }
   ```
 
@@ -33,8 +33,8 @@
     Пример ответа:
   ```json
   {
-	""uuid": "a3c8a350-5b69-4d75-a16e-8d5bfa2b7a29",
-	""balance": 150.75
+	"uuid": "a3c8a350-5b69-4d75-a16e-8d5bfa2b7a29",
+	"balance": 150.75
   }
   ```
 - **GET api/v1/wallets**
