@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COMPOSE_FILE="docker-compose.yml"
+COMPOSE_FILE="docker/docker-compose.yml"
 CONTAINER_NAME="app_container"
 SCRIPT_PATH="/migrations/migrate.sh"
 
