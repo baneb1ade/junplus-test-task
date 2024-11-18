@@ -1,4 +1,4 @@
-# Golang Wallet Service(Javacode Test Task)
+# Javacode Test Task(Golang version >= 1.23.0)
 
 Это приложение реализует сервис управления кошельками с использованием REST API.
 
