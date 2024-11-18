@@ -3,11 +3,12 @@ package tests
 import (
 	"context"
 	"fmt"
+	"github.com/joho/godotenv"
 	"javacode-test-task/app/internal/wallet"
 	"javacode-test-task/app/internal/wallet/db"
 	"javacode-test-task/app/pkg/client/psql"
 	"javacode-test-task/app/pkg/logger"
-	"strconv"
+	"os"
 	"testing"
 )
 
@@ -15,47 +16,50 @@ type TestStorageConfig struct {
 	DBUser     string
 	DBPassword string
 	DBHost     string
-	DBPort     int
+	DBPort     string
 	DBName     string
 }
 
 func loadTestConfig(t *testing.T) *TestStorageConfig {
-	//err := godotenv.Load("config.env")
-	//if err != nil {
-	//	t.Fatal("Error loading .env file")
-	//}
-	//requiredEnvVars := []string{
-	//	"POSTGRES_USER",
-	//	"POSTGRES_PASSWORD",
-	//	"POSTGRES_HOST",
-	//	"POSTGRES_PORT",
-	//	"POSTGRES_DB",
-	//	"SERVER_ADDRESS",
-	//	"SERVER_PORT",
-	//}
-	//
-	//for _, envVar := range requiredEnvVars {
-	//	if os.Getenv(envVar) == "" {
-	//		t.Fatalf("%s must be set", envVar)
-	//	}
-	//}
+	err := godotenv.Load("../../../../config.env")
+	if err != nil {
+		t.Fatal("Error loading .env file")
+	}
+	requiredEnvVars := []string{
+		"POSTGRES_USER",
+		"POSTGRES_PASSWORD",
+		"POSTGRES_HOST",
+		"POSTGRES_PORT",
+		"POSTGRES_DB",
+		"SERVER_ADDRESS",
+		"SERVER_PORT",
+	}
+
+	for _, envVar := range requiredEnvVars {
+		if os.Getenv(envVar) == "" {
+			t.Fatalf("%s must be set", envVar)
+		}
+	}
 	return &TestStorageConfig{
-		DBUser:     "postgres_user",
-		DBPassword: "postgres_password",
-		DBHost:     "localhost",
-		DBPort:     5430,
-		DBName:     "postgres_db",
+		DBUser:     os.Getenv("POSTGRES_USER"),
+		DBPassword: os.Getenv("POSTGRES_PASSWORD"),
+		DBHost:     os.Getenv("POSTGRES_HOST"),
+		DBPort:     os.Getenv("POSTGRES_PORT"),
+		DBName:     os.Getenv("POSTGRES_DB"),
 	}
 }
 
 func TestService(t *testing.T) {
 	cfg := loadTestConfig(t)
+	if cfg.DBHost == "postgres" {
+		cfg.DBHost = "localhost"
+	}
 	dsn := fmt.Sprintf(
 		"postgresql://%s:%s@%s:%s/%s?sslmode=disable",
 		cfg.DBUser,
 		cfg.DBPassword,
 		cfg.DBHost,
-		strconv.Itoa(cfg.DBPort), // Преобразуем int в строку
+		cfg.DBPort, // Преобразуем int в строку
 		cfg.DBName,
 	)
 	psqlClient, err := psql.NewClient(context.Background(), dsn)
